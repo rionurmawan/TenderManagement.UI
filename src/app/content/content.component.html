@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a
+    [routerLink]="['/tender/create']"
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      ><i class="fas fa-download fa-sm text-white-50"></i> Create Tender</a
+    >
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Tender List</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Tender ID</th>
+              <th scope="col">Contract No</th>
+              <th scope="col">Tender Name</th>
+              <th scope="col">Release date</th>
+              <th scope="col">Closing Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="tenders.length > 0; else empty_content">
+            <tr *ngFor="let tender of tenders; let num = index">
+              <td>{{ num + 1 }}</td>
+              <td>{{ tender.referenceNumber }}</td>
+              <td>{{ tender.name }}</td>
+              <td>{{ tender.releaseDate | date: "dd-MM-yyyy" }}</td>
+              <td>{{ tender.closingDate | date: "dd-MM-yyyy" }}</td>
+              <td>
+                <a
+                  [routerLink]="['/tender/view/', tender.id]"
+                  class="btn btn-sm btn-warning shadow-sm mr-1"
+                  ><i class="fas fa-search fa-sm text-white"></i
+                ></a>
+                <a
+                  [routerLink]="['/tender/edit/', tender.id]"
+                  class="btn btn-sm btn-primary shadow-sm mr-1"
+                  ><i class="fas fa-edit fa-sm text-white"></i
+                ></a>
+                <a (click)="openConfirmationDialog(tender.id)" class="btn btn-sm btn-danger shadow-sm"
+                  ><i class="fas fa-trash fa-sm text-white"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #empty_content>
+            <tbody>
+              <tr>
+                <td colspan="6" class="text-center">No data found</td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

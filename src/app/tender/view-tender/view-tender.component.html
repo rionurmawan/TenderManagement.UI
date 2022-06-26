@@ -1,0 +1,163 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Tender Management</h1>
+    <a
+      routerLink="/tender"
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+      ><i class="fas fa-chevron-left fa-sm"></i> Back</a
+    >
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Tender {{ title }}</h6>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="form-group mb-3 row">
+          <label class="col-sm-2 col-form-label"
+            >Tender Title: <span class="text-danger">*</span></label
+          >
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              formControlName="name"
+            />
+            <small
+              *ngIf="submitted || (f['name'].touched && f['name'].errors)"
+              class="form-text text-danger"
+              ><div *ngIf="f['name'].errors?.['required']">
+                Name is required
+              </div></small
+            >
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label"
+            >Tender Ref: <span class="text-danger">*</span></label
+          >
+          <div class="col-sm-4">
+            <input
+              type="text"
+              class="form-control"
+              name="referenceNumber"
+              formControlName="referenceNumber"
+            />
+            <small
+              *ngIf="
+                submitted ||
+                (f['referenceNumber'].touched && f['referenceNumber'].errors)
+              "
+              class="form-text text-danger"
+              ><div *ngIf="f['referenceNumber'].errors?.['required']">
+                Tender Ref is required
+              </div></small
+            >
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label my-auto"
+            >Release Date: <span class="text-danger">*</span></label
+          >
+          <div class="col-sm-4 my-auto">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="dd-mm-yyyy"
+                name="releaseDate"
+                formControlName="releaseDate"
+                ngbDatepicker
+                #d="ngbDatepicker"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                (click)="d.toggle()"
+                type="button"
+              >
+                <span class="fas fa-calendar fa-sm"></span>
+              </button>
+            </div>
+            <small class="form-text text-danger"
+              ><div *ngIf="form.errors">
+                {{ form.errors?.["releasedates"] }}
+              </div></small
+            >
+          </div>
+          <div class="col-sm-3">
+            <ngb-timepicker formControlName="releaseTime"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label my-auto"
+            >Closing Date: <span class="text-danger">*</span></label
+          >
+          <div class="col-sm-4 my-auto">
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="dd-mm-yyyy"
+                name="closingDate"
+                formControlName="closingDate"
+                ngbDatepicker
+                #e="ngbDatepicker"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                (click)="e.toggle()"
+                type="button"
+              >
+                <span class="fas fa-calendar fa-sm"></span>
+              </button>
+            </div>
+            <small class="form-text text-danger"
+              ><div *ngIf="form.errors">
+                {{ form.errors?.["closingdates"] }}
+              </div></small
+            >
+            <small class="form-text text-danger"
+              ><div *ngIf="form.errors">
+                {{ form.errors?.["dates"] }}
+              </div></small
+            >
+          </div>
+          <div class="col-sm-3">
+            <ngb-timepicker formControlName="closingTime"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label"
+            >Description: <span class="text-danger">*</span></label
+          >
+          <div class="col-sm-10">
+            <textarea
+              class="form-control"
+              name="description"
+              formControlName="description"
+              cols="30"
+              rows="8"
+            ></textarea>
+            <small
+              *ngIf="
+                submitted ||
+                (f['description'].touched && f['description'].errors)
+              "
+              class="form-text text-danger"
+              ><div *ngIf="f['description'].errors?.['required']">
+                Description is required
+              </div></small
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer py-3" *ngIf="action != 'view'">
+      <a class="btn btn-primary" [ngClass]="{'disabled': !form.valid}" (click)="onCreateOrUpdate()"
+        ><i class="fas fa-pen fa-sm"></i>
+        {{ action == "edit" ? "Update" : "Create" }}</a
+      >
+    </div>
+  </div>
+</div>
